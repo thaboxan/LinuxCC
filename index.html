@@ -332,7 +332,89 @@
       { category: "Archives", difficulty: "medium", question: "What command creates tar archives?", hint: "Tape archive", answers: ["tar"], explanation: "tar = tape archive" },
       { category: "Archives", difficulty: "hard", question: "What tar flags create a gzip compressed archive?", hint: "Create, gzip, verbose, file", answers: ["-czvf", "czvf", "-czf", "czf"], explanation: "c=create, z=gzip, v=verbose, f=file" },
       { category: "Text Processing", difficulty: "hard", question: "What awk variable holds the number of fields in a record?", hint: "Number of Fields", answers: ["NF", "$NF"], explanation: "NF = Number of Fields in current record" },
-      { category: "Text Processing", difficulty: "hard", question: "What sed flag replaces all occurrences on each line?", hint: "Global", answers: ["g", "/g"], explanation: "The g flag means global replacement" }
+      { category: "Text Processing", difficulty: "hard", question: "What sed flag replaces all occurrences on each line?", hint: "Global", answers: ["g", "/g"], explanation: "The g flag means global replacement" },
+      // Shell Scripting
+      { category: "Scripting", difficulty: "easy", question: "What line should be first in a bash script?", hint: "Shebang", answers: ["#!/bin/bash", "#! /bin/bash"], explanation: "The shebang tells the system which interpreter to use" },
+      { category: "Scripting", difficulty: "easy", question: "How do you make a script executable?", hint: "chmod with execute", answers: ["chmod +x", "chmod 755", "chmod u+x"], explanation: "chmod +x adds execute permission" },
+      { category: "Scripting", difficulty: "medium", question: "How do you access the first command-line argument in a script?", hint: "Dollar sign and number", answers: ["$1"], explanation: "$1 is the first argument, $2 is second, etc." },
+      { category: "Scripting", difficulty: "medium", question: "What variable holds the number of arguments passed to a script?", hint: "Dollar sign and hash", answers: ["$#"], explanation: "$# contains the count of arguments" },
+      { category: "Scripting", difficulty: "medium", question: "What variable holds the exit status of the last command?", hint: "Dollar sign and question mark", answers: ["$?"], explanation: "$? contains the exit code (0 = success)" },
+      { category: "Scripting", difficulty: "medium", question: "How do you store command output in a variable?", hint: "Dollar sign with parentheses or backticks", answers: ["$(command)", "$()", "`command`"], explanation: "$(command) or `command` captures output" },
+      { category: "Scripting", difficulty: "hard", question: "What keyword ends an if statement in bash?", hint: "if spelled backwards", answers: ["fi"], explanation: "fi closes an if block" },
+      { category: "Scripting", difficulty: "hard", question: "What keyword ends a case statement in bash?", hint: "case spelled backwards", answers: ["esac"], explanation: "esac closes a case block" },
+      // LVM
+      { category: "Storage", difficulty: "medium", question: "What command creates a physical volume for LVM?", hint: "pv + create", answers: ["pvcreate"], explanation: "pvcreate initializes a disk for LVM" },
+      { category: "Storage", difficulty: "medium", question: "What command creates a volume group?", hint: "vg + create", answers: ["vgcreate"], explanation: "vgcreate creates a volume group from PVs" },
+      { category: "Storage", difficulty: "medium", question: "What command creates a logical volume?", hint: "lv + create", answers: ["lvcreate"], explanation: "lvcreate creates a logical volume in a VG" },
+      { category: "Storage", difficulty: "hard", question: "What command extends a logical volume?", hint: "lv + extend", answers: ["lvextend"], explanation: "lvextend increases LV size" },
+      { category: "Storage", difficulty: "hard", question: "What command displays physical volume information?", hint: "pv + display or pvs", answers: ["pvdisplay", "pvs"], explanation: "pvdisplay/pvs show PV details" },
+      { category: "Storage", difficulty: "medium", question: "What command creates an ext4 filesystem?", hint: "mkfs with type", answers: ["mkfs.ext4", "mkfs -t ext4"], explanation: "mkfs.ext4 formats a partition as ext4" },
+      { category: "Storage", difficulty: "medium", question: "What command creates an XFS filesystem?", hint: "mkfs with type", answers: ["mkfs.xfs"], explanation: "mkfs.xfs formats a partition as XFS" },
+      // Networking
+      { category: "Networking", difficulty: "medium", question: "What command shows the routing table?", hint: "ip + route", answers: ["ip r", "ip route", "route", "netstat -r"], explanation: "ip route shows routing information" },
+      { category: "Networking", difficulty: "medium", question: "What command manages NetworkManager connections?", hint: "nm + cli", answers: ["nmcli"], explanation: "nmcli is the NetworkManager command-line interface" },
+      { category: "Networking", difficulty: "hard", question: "What command tests if a port is open on a remote host?", hint: "Network cat or telnet", answers: ["nc", "netcat", "telnet", "nmap"], explanation: "nc (netcat) can test port connectivity" },
+      { category: "Networking", difficulty: "medium", question: "What command shows DNS information for a domain?", hint: "dig or nslookup", answers: ["dig", "nslookup", "host"], explanation: "dig queries DNS servers" },
+      { category: "Networking", difficulty: "hard", question: "What firewall-cmd option makes changes permanent?", hint: "Persist changes", answers: ["--permanent"], explanation: "--permanent saves rules across reboots" },
+      // Boot & Systemd
+      { category: "Services", difficulty: "medium", question: "What command shows the default boot target?", hint: "systemctl get-?", answers: ["systemctl get-default"], explanation: "Shows which target boots by default" },
+      { category: "Services", difficulty: "hard", question: "What command sets the default boot target?", hint: "systemctl set-?", answers: ["systemctl set-default"], explanation: "Changes the default boot target" },
+      { category: "Services", difficulty: "hard", question: "What command reloads systemd after adding a service file?", hint: "daemon-?", answers: ["systemctl daemon-reload"], explanation: "Reloads systemd manager configuration" },
+      { category: "Services", difficulty: "medium", question: "What command shows why a service failed?", hint: "systemctl status or journalctl", answers: ["systemctl status", "journalctl -xe", "journalctl -u"], explanation: "status and journalctl show failure reasons" },
+      { category: "Services", difficulty: "hard", question: "What target is equivalent to runlevel 3?", hint: "multi-user", answers: ["multi-user.target"], explanation: "multi-user.target = text mode, networking on" },
+      { category: "Services", difficulty: "hard", question: "What target is equivalent to runlevel 5?", hint: "graphical", answers: ["graphical.target"], explanation: "graphical.target = GUI mode" },
+      // SELinux
+      { category: "SELinux", difficulty: "hard", question: "What command adds a permanent file context rule?", hint: "semanage fcontext", answers: ["semanage fcontext", "semanage fcontext -a"], explanation: "semanage fcontext manages file context mappings" },
+      { category: "SELinux", difficulty: "medium", question: "What command shows SELinux context of files?", hint: "ls with -Z", answers: ["ls -Z"], explanation: "-Z shows SELinux security context" },
+      { category: "SELinux", difficulty: "hard", question: "What command analyzes SELinux denials?", hint: "audit2why or sealert", answers: ["audit2why", "sealert"], explanation: "audit2why explains AVC denials" },
+      { category: "SELinux", difficulty: "medium", question: "What command lists all SELinux booleans?", hint: "getsebool -a", answers: ["getsebool -a"], explanation: "Lists all SELinux boolean values" },
+      { category: "SELinux", difficulty: "hard", question: "What command sets an SELinux boolean permanently?", hint: "setsebool with -P", answers: ["setsebool -P"], explanation: "-P makes the boolean change persistent" },
+      // Containers
+      { category: "Containers", difficulty: "medium", question: "What command pulls a container image?", hint: "podman pull", answers: ["podman pull", "docker pull"], explanation: "pull downloads an image from a registry" },
+      { category: "Containers", difficulty: "medium", question: "What command lists container images?", hint: "podman images", answers: ["podman images", "docker images"], explanation: "images lists downloaded container images" },
+      { category: "Containers", difficulty: "medium", question: "What command runs a container in the background?", hint: "run with -d flag", answers: ["podman run -d", "docker run -d"], explanation: "-d runs container in detached mode" },
+      { category: "Containers", difficulty: "hard", question: "What command executes a command inside a running container?", hint: "exec", answers: ["podman exec", "docker exec"], explanation: "exec runs commands in running containers" },
+      { category: "Containers", difficulty: "hard", question: "What command builds a container image from a Containerfile?", hint: "build", answers: ["podman build", "docker build"], explanation: "build creates images from Containerfile/Dockerfile" },
+      { category: "Containers", difficulty: "medium", question: "What command stops a running container?", hint: "stop", answers: ["podman stop", "docker stop"], explanation: "stop gracefully stops a container" },
+      // Ansible
+      { category: "Ansible", difficulty: "medium", question: "What command runs an Ansible playbook?", hint: "ansible-playbook", answers: ["ansible-playbook"], explanation: "ansible-playbook executes playbook files" },
+      { category: "Ansible", difficulty: "medium", question: "What Ansible module installs packages on RHEL?", hint: "dnf or yum", answers: ["dnf", "yum", "package"], explanation: "dnf/yum/package modules manage packages" },
+      { category: "Ansible", difficulty: "hard", question: "What Ansible module manages systemd services?", hint: "service or systemd", answers: ["service", "systemd"], explanation: "service/systemd modules control services" },
+      { category: "Ansible", difficulty: "medium", question: "What Ansible module copies files to remote hosts?", hint: "copy", answers: ["copy"], explanation: "copy module transfers files to managed nodes" },
+      { category: "Ansible", difficulty: "hard", question: "What Ansible module deploys Jinja2 templates?", hint: "template", answers: ["template"], explanation: "template module processes and deploys templates" },
+      { category: "Ansible", difficulty: "hard", question: "What command tests Ansible host connectivity?", hint: "ansible with ping module", answers: ["ansible all -m ping", "ansible -m ping"], explanation: "ping module tests if hosts are reachable" },
+      // More Text Processing
+      { category: "Text Processing", difficulty: "medium", question: "What command sorts lines in a file?", hint: "Alphabetically arrange", answers: ["sort"], explanation: "sort orders lines alphabetically or numerically" },
+      { category: "Text Processing", difficulty: "medium", question: "What command removes duplicate lines?", hint: "Unique", answers: ["uniq"], explanation: "uniq filters out repeated adjacent lines" },
+      { category: "Text Processing", difficulty: "medium", question: "What command extracts columns from text?", hint: "Cut out sections", answers: ["cut"], explanation: "cut removes sections from each line" },
+      { category: "Text Processing", difficulty: "hard", question: "What command joins lines from two files?", hint: "Paste together", answers: ["paste", "join"], explanation: "paste/join merge lines from multiple files" },
+      { category: "Text Processing", difficulty: "easy", question: "What command displays file contents?", hint: "Like a cat", answers: ["cat"], explanation: "cat concatenates and displays files" },
+      { category: "Text Processing", difficulty: "medium", question: "What command displays file contents page by page?", hint: "less is more", answers: ["less", "more"], explanation: "less/more are pagers for viewing files" },
+      // More Permissions
+      { category: "Permissions", difficulty: "hard", question: "What command sets Access Control Lists?", hint: "setfacl", answers: ["setfacl"], explanation: "setfacl sets file access control lists" },
+      { category: "Permissions", difficulty: "hard", question: "What command displays Access Control Lists?", hint: "getfacl", answers: ["getfacl"], explanation: "getfacl displays file ACLs" },
+      { category: "Permissions", difficulty: "medium", question: "What special permission makes files run as the owner?", hint: "Set User ID", answers: ["setuid", "suid", "4000"], explanation: "SUID bit runs executable as file owner" },
+      { category: "Permissions", difficulty: "medium", question: "What special permission keeps files in a directory owned by their creator?", hint: "Sticky", answers: ["sticky bit", "sticky", "1000", "+t"], explanation: "Sticky bit prevents deletion by non-owners" },
+      // More Users
+      { category: "Users", difficulty: "medium", question: "What command modifies an existing user?", hint: "usermod", answers: ["usermod"], explanation: "usermod changes user account properties" },
+      { category: "Users", difficulty: "medium", question: "What command deletes a user?", hint: "userdel", answers: ["userdel"], explanation: "userdel removes user accounts" },
+      { category: "Users", difficulty: "medium", question: "What command creates a new group?", hint: "groupadd", answers: ["groupadd"], explanation: "groupadd creates a new group" },
+      { category: "Users", difficulty: "hard", question: "What command changes password aging policies?", hint: "chage", answers: ["chage"], explanation: "chage modifies password expiry settings" },
+      { category: "Users", difficulty: "medium", question: "What command shows groups a user belongs to?", hint: "groups", answers: ["groups", "id"], explanation: "groups or id show user group membership" },
+      // More Find
+      { category: "Find", difficulty: "hard", question: "What find option searches by file type?", hint: "-type", answers: ["-type"], explanation: "-type f for files, -type d for directories" },
+      { category: "Find", difficulty: "hard", question: "What find option searches by modification time in days?", hint: "-mtime", answers: ["-mtime"], explanation: "-mtime +7 finds files modified more than 7 days ago" },
+      { category: "Find", difficulty: "hard", question: "What find option executes a command on results?", hint: "-exec", answers: ["-exec"], explanation: "-exec runs a command on each found file" },
+      { category: "Find", difficulty: "medium", question: "What find option searches by file size?", hint: "-size", answers: ["-size"], explanation: "-size +100M finds files larger than 100MB" },
+      // Cron
+      { category: "Services", difficulty: "medium", question: "What command edits the user's crontab?", hint: "crontab -e", answers: ["crontab -e"], explanation: "crontab -e opens the crontab editor" },
+      { category: "Services", difficulty: "hard", question: "What cron field represents day of week?", hint: "Fifth field (0-6)", answers: ["5", "fifth", "5th"], explanation: "Fields: min hour day month day-of-week" },
+      { category: "Services", difficulty: "hard", question: "What cron expression means 'every 5 minutes'?", hint: "*/5 in first field", answers: ["*/5 * * * *", "*/5"], explanation: "*/5 means every 5 units of that field" },
+      // Archives
+      { category: "Archives", difficulty: "medium", question: "What tar flags extract an archive?", hint: "Extract", answers: ["-xvf", "xvf", "-xf", "xf"], explanation: "x=extract, v=verbose, f=file" },
+      { category: "Archives", difficulty: "medium", question: "What tar flags list archive contents?", hint: "Table of contents", answers: ["-tvf", "tvf", "-tf", "tf"], explanation: "t=list, v=verbose, f=file" },
+      { category: "Archives", difficulty: "medium", question: "What command compresses files with gzip?", hint: "gzip", answers: ["gzip"], explanation: "gzip compresses files with .gz extension" },
+      { category: "Archives", difficulty: "medium", question: "What command decompresses gzip files?", hint: "gunzip", answers: ["gunzip", "gzip -d"], explanation: "gunzip or gzip -d decompresses" }
     ];
 
     let quizScore = 0;
@@ -415,11 +497,16 @@
       document.getElementById('quiz-category').className = 'quiz-badge ' + quizCurrent.difficulty;
       document.getElementById('quiz-question').textContent = quizCurrent.question;
       document.getElementById('quiz-hint').textContent = 'Hint: ' + quizCurrent.hint;
+      document.getElementById('quiz-hint').classList.remove('visible');
       document.getElementById('quiz-input').value = '';
       document.getElementById('quiz-input').disabled = false;
       document.getElementById('quiz-feedback').style.display = 'none';
       document.getElementById('quiz-answer').style.display = 'none';
       document.getElementById('quiz-input').focus();
+    }
+
+    function viewQuizHint() {
+      document.getElementById('quiz-hint').classList.add('visible');
     }
 
     function submitQuizAnswer() {

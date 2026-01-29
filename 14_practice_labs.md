@@ -120,6 +120,15 @@ Starting from /home/user:
 ```
 
 <details>
+<summary>View Hint</summary>
+
+- **Task 1.1:** Use `pwd` for current directory. Remember `~`, bare `cd`, and `$HOME` all go home.
+- **Task 1.2:** Try `ls -lS` to sort by size, `file` command reveals file types, and `tree -L` limits depth.
+- **Task 1.3:** Use `..` to go up one directory level. Count how many levels you need to ascend.
+
+</details>
+
+<details>
 <summary>View Solutions</summary>
 
 **Task 1.1:**
@@ -236,6 +245,16 @@ In /etc:
 4. Find all symbolic links
 5. Copy all .conf files to ~/project/config/ (use find with exec)
 ```
+
+<details>
+<summary>View Hint</summary>
+
+- **Task 2.1:** Use `mkdir -p` with brace expansion `{dir1,dir2}` to create multiple directories at once.
+- **Task 2.2:** `ln -s` creates symbolic links, `ln` (no flag) creates hard links.
+- **Task 2.3:** Remember tar flags: `c` (create), `x` (extract), `z` (gzip), `j` (bzip2), `v` (verbose), `f` (file).
+- **Task 2.4:** `find` with `-exec` runs commands on results. Use `{}` as placeholder, end with `\;`
+
+</details>
 
 <details>
 <summary>View Solutions</summary>
@@ -364,6 +383,16 @@ Create a shared project directory with these requirements:
 4. Create an alias for network commands and allow developer to use them
 5. Log all sudo commands to /var/log/sudo.log
 ```
+
+<details>
+<summary>View Hint</summary>
+
+- **Task 3.1:** Use `useradd -m` for home directory, `-e` for expiry date, `chage` for password aging.
+- **Task 3.2:** SGID = `chmod g+s`, sticky bit = `chmod +t`. Numeric: SGID=2, sticky=1 (prepend to permissions).
+- **Task 3.3:** `setfacl -m` modifies ACLs, `getfacl` displays them, `setfacl -x` removes specific entries.
+- **Task 3.4:** Always use `visudo` to edit sudoers safely. Use `%groupname` for groups.
+
+</details>
 
 <details>
 <summary>View Solutions</summary>
@@ -553,6 +582,16 @@ Combine tools to answer:
 ```
 
 <details>
+<summary>View Hint</summary>
+
+- **Task 4.1:** `grep -v` inverts match, `-c` counts, `-i` is case-insensitive, `-E` enables extended regex.
+- **Task 4.2:** In sed, `s/pattern/replacement/g` replaces globally. Use `-E` for extended regex with capture groups.
+- **Task 4.3:** In awk, `$1` is first field, `NR` is line number. Use `END{}` block for final calculations.
+- **Task 4.4:** Pipe commands together: `sort | uniq -c | sort -rn | head` for frequency analysis.
+
+</details>
+
+<details>
 <summary>View Solutions</summary>
 
 **Task 4.1:**
@@ -710,6 +749,16 @@ Create cron jobs to:
 5. Log system uptime every hour (append to a file)
 6. Create an at job to run once in 2 hours
 ```
+
+<details>
+<summary>View Hint</summary>
+
+- **Task 5.1:** `ps aux` shows all processes. `--sort=-%mem` sorts by memory descending. `pgrep` finds PIDs.
+- **Task 5.2:** `&` runs in background, `jobs` lists them, `fg/bg` switch foreground/background, `Ctrl+Z` suspends.
+- **Task 5.3:** `systemctl start/stop/enable/disable` controls services. `journalctl -u` shows service logs.
+- **Task 5.4:** Cron format: `min hour day month weekday command`. Use `*/15` for "every 15 minutes".
+
+</details>
 
 <details>
 <summary>View Solutions</summary>
@@ -894,6 +943,16 @@ Perform these diagnostic steps:
 ```
 
 <details>
+<summary>View Hint</summary>
+
+- **Task 6.1:** `ip a` shows addresses, `ip r` shows routes, `ss -tulpn` shows listening ports with process names.
+- **Task 6.2:** Use `nmcli con` for connections, `nmcli con mod` to modify, `nmcli con up/down` to toggle.
+- **Task 6.3:** `firewall-cmd --permanent` makes changes persist. `--add-service`, `--add-port` open traffic.
+- **Task 6.4:** Systematic approach: check service → port → firewall → interface → routing → DNS.
+
+</details>
+
+<details>
 <summary>View Solutions</summary>
 
 **Task 6.1:**
@@ -1071,6 +1130,16 @@ echo "Findings documented in /tmp/network-troubleshoot.txt"
 5. Switch to a different stream
 6. Reset a module stream
 ```
+
+<details>
+<summary>View Hint</summary>
+
+- **Task 7.1:** `dnf search` finds packages, `dnf info` shows details, `dnf provides` finds which package owns a file.
+- **Task 7.2:** `dnf repolist` shows enabled repos. EPEL adds extra packages for Enterprise Linux.
+- **Task 7.3:** `rpm -q` queries packages, `-l` lists files, `-f` finds owner, `-V` verifies integrity.
+- **Task 7.4:** `dnf module list` shows streams, `enable` activates, `reset` clears selection.
+
+</details>
 
 <details>
 <summary>View Solutions</summary>
@@ -1254,6 +1323,16 @@ Using /dev/loop0 (or spare disk):
 ```
 
 <details>
+<summary>View Hint</summary>
+
+- **Task 8.1:** Use `gdisk` for GPT partitions. Partition type `8200` is Linux swap.
+- **Task 8.2:** LVM flow: `pvcreate` → `vgcreate` → `lvcreate`. Extend with `lvextend`, then grow filesystem.
+- **Task 8.3:** Use UUID or LV path in `/etc/fstab`. Test with `mount -a` before rebooting.
+- **Task 8.4:** Create swap file with `dd`, format with `mkswap`, enable with `swapon`. Add to fstab for persistence.
+
+</details>
+
+<details>
 <summary>View Solutions</summary>
 
 **Task 8.1:**
@@ -1435,6 +1514,17 @@ Create a script called 'monitor.sh' that:
 5. Runs in a loop with configurable interval
 6. Handles graceful shutdown on SIGTERM
 ```
+
+<details>
+<summary>View Hint</summary>
+
+- **Task 9.1:** Use command substitution `$(command)` to embed output. `free -h` shows human-readable memory.
+- **Task 9.2:** Use `case` statements for menu options. `id username` checks if user exists (exit code 0 = exists).
+- **Task 9.3:** `awk '{print $1}'` extracts first field. Pipe through `sort | uniq -c | sort -rn` for frequency.
+- **Task 9.4:** Use `ls -1t` to list files by time, `tail -n +N` to skip first N-1 files for rotation.
+- **Task 9.5:** Use `trap` to catch signals. `systemctl is-active --quiet` returns 0 if service is running.
+
+</details>
 
 <details>
 <summary>View Solutions</summary>
@@ -1722,6 +1812,16 @@ Scenario: A custom web app on port 8888 won't start.
 ```
 
 <details>
+<summary>View Hint</summary>
+
+- **Task 10.1:** `getenforce` shows current mode, `setenforce 0/1` toggles temporarily. `getsebool -a` lists booleans.
+- **Task 10.2:** `semanage fcontext` sets persistent contexts, `restorecon -Rv` applies them recursively.
+- **Task 10.3:** Use `setsebool -P` for persistent boolean changes. Search booleans with `getsebool -a | grep keyword`.
+- **Task 10.4:** `ausearch -m avc` finds denials, `audit2why` explains them, `semanage port -a` adds port labels.
+
+</details>
+
+<details>
 <summary>View Solutions</summary>
 
 **Task 10.1:**
@@ -1872,6 +1972,16 @@ Document the steps to reset a forgotten root password:
 4. Reinstall GRUB (if needed)
 5. Recover from a missing GRUB installation
 ```
+
+<details>
+<summary>View Hint</summary>
+
+- **Task 11.1:** `/proc/cmdline` shows current boot parameters. `systemd-analyze blame` shows slow services.
+- **Task 11.2:** `systemctl isolate target` switches targets live. `set-default` changes boot target.
+- **Task 11.3:** Add `rd.break` to kernel line to break before root mount. Use `touch /.autorelabel` for SELinux.
+- **Task 11.4:** `grubby` modifies boot entries. Backup configs before making changes. Reinstall with `grub2-install`.
+
+</details>
 
 <details>
 <summary>View Solutions</summary>
@@ -2037,6 +2147,16 @@ Deploy a WordPress application:
 5. Create a compose file for the deployment
 6. Bring up/down with compose
 ```
+
+<details>
+<summary>View Hint</summary>
+
+- **Task 12.1:** `podman run -d` runs detached, `-p` maps ports, `--name` assigns name. `exec -it` opens shell.
+- **Task 12.2:** Containerfile: `FROM` sets base, `RUN` executes commands, `COPY` adds files, `CMD` sets default command.
+- **Task 12.3:** `podman volume create` makes volumes. Mount with `-v volume:/path` in run command.
+- **Task 12.4:** Create network with `podman network create`. Use `--network` and `-e` for environment variables.
+
+</details>
 
 <details>
 <summary>View Solutions</summary>
@@ -2255,6 +2375,17 @@ Create a complete playbook that:
 6. Uses vault for sensitive data
 7. Is idempotent (can run multiple times safely)
 ```
+
+<details>
+<summary>View Hint</summary>
+
+- **Task 13.1:** Use `ansible all -m ping` for connectivity. Ad-hoc format: `ansible group -m module -a "args"`
+- **Task 13.2:** Start with `hosts:`, `become: yes`, then `tasks:`. Use `dnf` module for packages, `service` for services.
+- **Task 13.3:** Define variables in `vars:` section or separate file. Access with `{{ variable_name }}`. Use `template` module.
+- **Task 13.4:** Handlers run only when notified and execute at end of play. Use `notify: handler_name` in tasks.
+- **Task 13.5:** Use `ansible-vault create` for secrets. `block/rescue` provides error handling. Check mode tests idempotency.
+
+</details>
 
 <details>
 <summary>View Solutions</summary>

@@ -90,6 +90,22 @@ Test your Linux knowledge with these interactive questions. Type your answer and
   font-size: 14px;
   font-style: italic;
   margin-bottom: 20px;
+  display: none;
+  background: #e8f4fd;
+  padding: 10px 15px;
+  border-radius: 8px;
+  border-left: 4px solid #3498db;
+}
+#quiz-hint.visible {
+  display: block;
+}
+.quiz-btn-hint {
+  background: linear-gradient(135deg, #9b59b6, #8e44ad);
+  color: white;
+}
+.quiz-btn-hint:hover {
+  background: linear-gradient(135deg, #a569bd, #9b59b6);
+  transform: translateY(-2px);
 }
 #quiz-input {
   width: 100%;
@@ -202,6 +218,7 @@ Test your Linux knowledge with these interactive questions. Type your answer and
     <input type="text" id="quiz-input" placeholder="Type your answer here...">
     <div class="quiz-buttons">
       <button class="quiz-btn-submit" onclick="submitQuizAnswer()">Submit Answer</button>
+      <button class="quiz-btn-hint" onclick="viewQuizHint()">View Hint</button>
       <button class="quiz-btn-view" onclick="viewQuizAnswer()">View Answer</button>
       <button class="quiz-btn-next" onclick="loadQuizQuestion()">Next Question</button>
     </div>
