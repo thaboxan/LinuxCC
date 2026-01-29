@@ -83,20 +83,25 @@ ls --color=auto            # Colorized output (default in RHEL)
 ```
 
 ### Understanding ls -l Output
-```
--rw-r--r--. 1 user group 4096 Jan 28 10:30 filename.txt
-│├──┼──┼──│ │  │    │     │        │          │
-││  │  │  │ │  │    │     │        │          └── Filename
-││  │  │  │ │  │    │     │        └── Modification date/time
-││  │  │  │ │  │    │     └── File size (bytes)
-││  │  │  │ │  │    └── Group owner
-││  │  │  │ │  └── User owner
-││  │  │  │ └── Number of hard links
-││  │  │  └── SELinux context indicator (. or +)
-││  │  └── Others permissions (r--)
-││  └── Group permissions (r--)
-│└── User/Owner permissions (rw-)
-└── File type (- = file, d = directory, l = link)
+
+```mermaid
+flowchart LR
+    subgraph output["ls -l Output Breakdown"]
+        direction TB
+        example["-rw-r--r--. 1 user group 4096 Jan 28 10:30 filename.txt"]
+    end
+    
+    example --- type["<b>-</b> = File type<br/>- file, d dir, l link"]
+    example --- owner["<b>rw-</b> = Owner permissions"]
+    example --- grp["<b>r--</b> = Group permissions"]  
+    example --- other["<b>r--</b> = Others permissions"]
+    example --- selinux["<b>.</b> = SELinux context"]
+    example --- links["<b>1</b> = Hard link count"]
+    example --- user["<b>user</b> = Owner name"]
+    example --- group["<b>group</b> = Group name"]
+    example --- size["<b>4096</b> = Size in bytes"]
+    example --- date["<b>Jan 28 10:30</b> = Modified"]
+    example --- name["<b>filename.txt</b> = Name"]
 ```
 
 ### File Type Indicators
@@ -594,24 +599,29 @@ type cd
 ## Links (Hard and Symbolic)
 
 ### Understanding Links
-```
-Hard Link:
-┌─────────────┐     ┌─────────────┐
-│  filename1  │────▶│    inode    │────▶ Data blocks
-└─────────────┘     │   (12345)   │
-                    └─────────────┘
-┌─────────────┐           ▲
-│  filename2  │───────────┘
-└─────────────┘
-(Both point to same inode/data)
 
-Symbolic Link:
-┌─────────────┐     ┌─────────────┐
-│  symlink    │────▶│  /path/to/  │
-└─────────────┘     │  original   │
-                    └─────────────┘
-(Points to the path, not the data)
+```mermaid
+flowchart LR
+    subgraph hard["Hard Link"]
+        direction LR
+        f1["📄 filename1"] --> inode["🔷 inode<br/>(12345)"]
+        f2["📄 filename2"] --> inode
+        inode --> data1["💾 Data blocks"]
+    end
 ```
+
+```mermaid
+flowchart LR
+    subgraph soft["Symbolic Link"]
+        direction LR
+        sym["🔗 symlink"] --> path["📁 /path/to/<br/>original"]
+        path --> orig["📄 original file"]
+        orig --> data2["💾 Data blocks"]
+    end
+```
+
+> **Hard Links**: Multiple filenames pointing to the same inode (same data)  
+> **Symbolic Links**: A pointer to the file path, not the data itself
 
 ### ln - Create Links
 ```bash

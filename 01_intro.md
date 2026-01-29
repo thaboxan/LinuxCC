@@ -49,18 +49,27 @@
 An **Operating System (OS)** is system software that manages computer hardware and software resources and provides common services for programs.
 
 ### Core Functions
-```
-┌─────────────────────────────────────────────┐
-│              Applications                    │
-├─────────────────────────────────────────────┤
-│              Shell / CLI / GUI               │
-├─────────────────────────────────────────────┤
-│              System Libraries                │
-├─────────────────────────────────────────────┤
-│              KERNEL                          │
-├─────────────────────────────────────────────┤
-│              Hardware                        │
-└─────────────────────────────────────────────┘
+```mermaid
+flowchart TB
+    subgraph os["Operating System Layers"]
+        direction TB
+        A["📱 Applications"]
+        B["💻 Shell / CLI / GUI"]
+        C["📚 System Libraries"]
+        D["🐧 KERNEL"]
+        E["🖥️ Hardware"]
+    end
+    
+    A --> B
+    B --> C
+    C --> D
+    D --> E
+    
+    style A fill:#e1f5fe,color:#000
+    style B fill:#b3e5fc,color:#000
+    style C fill:#81d4fa,color:#000
+    style D fill:#4fc3f7,color:#000,stroke:#01579b,stroke-width:3px
+    style E fill:#29b6f6,color:#000
 ```
 
 ### Key Responsibilities
@@ -96,23 +105,36 @@ The **kernel** is the core component of the Linux operating system. It acts as a
   - Uses loadable kernel modules for flexibility
 
 ### Kernel Space vs User Space
-```
-┌────────────────────────────────────────┐
-│           USER SPACE                    │
-│  ┌──────────┐ ┌──────────┐ ┌────────┐  │
-│  │  Apps    │ │  Shell   │ │ Tools  │  │
-│  └──────────┘ └──────────┘ └────────┘  │
-├────────────────────────────────────────┤
-│         System Call Interface           │
-├────────────────────────────────────────┤
-│           KERNEL SPACE                  │
-│  ┌─────────────────────────────────┐   │
-│  │ Process Mgmt | Memory | Drivers │   │
-│  │ File System  | Network Stack    │   │
-│  └─────────────────────────────────┘   │
-├────────────────────────────────────────┤
-│             HARDWARE                    │
-└────────────────────────────────────────┘
+```mermaid
+flowchart TB
+    subgraph user["USER SPACE"]
+        direction LR
+        apps["Apps"]
+        shell["Shell"]
+        tools["Tools"]
+    end
+    
+    syscall["System Call Interface"]
+    
+    subgraph kernel["KERNEL SPACE"]
+        direction LR
+        proc["Process Mgmt"]
+        mem["Memory"]
+        drivers["Drivers"]
+        fs["File System"]
+        net["Network Stack"]
+    end
+    
+    hardware["HARDWARE"]
+    
+    user --> syscall
+    syscall --> kernel
+    kernel --> hardware
+    
+    style user fill:#e8f5e9
+    style kernel fill:#fff3e0
+    style syscall fill:#fce4ec
+    style hardware fill:#e3f2fd
 ```
 
 ### Checking Kernel Information (RHEL)
@@ -141,24 +163,33 @@ A **Linux distribution (distro)** is an operating system made from the Linux ker
 
 ### Major Distribution Families
 
-```
-                    ┌─────────────┐
-                    │   Linux     │
-                    │   Kernel    │
-                    └──────┬──────┘
-           ┌───────────────┼───────────────┐
-           ▼               ▼               ▼
-    ┌──────────┐    ┌──────────┐    ┌──────────┐
-    │  Debian  │    │ Red Hat  │    │   SUSE   │
-    └────┬─────┘    └────┬─────┘    └────┬─────┘
-         │               │               │
-    ┌────┴────┐    ┌─────┴─────┐   ┌─────┴─────┐
-    │ Ubuntu  │    │   RHEL    │   │ openSUSE  │
-    │ Mint    │    │  CentOS   │   │   SLES    │
-    │ Kali    │    │  Fedora   │   └───────────┘
-    └─────────┘    │  Rocky    │
-                   │  AlmaLinux│
-                   └───────────┘
+```mermaid
+flowchart TD
+    kernel["🐧 Linux Kernel"]
+    
+    kernel --> debian["Debian"]
+    kernel --> redhat["Red Hat"]
+    kernel --> suse["SUSE"]
+    
+    debian --> ubuntu["Ubuntu"]
+    debian --> mint["Mint"]
+    debian --> kali["Kali"]
+    
+    redhat --> rhel["RHEL"]
+    redhat --> centos["CentOS"]
+    redhat --> fedora["Fedora"]
+    redhat --> rocky["Rocky"]
+    redhat --> alma["AlmaLinux"]
+    
+    suse --> opensuse["openSUSE"]
+    suse --> sles["SLES"]
+    
+    style kernel fill:#f5f5dc,color:#000
+    style debian fill:#d70751,color:#fff
+    style redhat fill:#ee0000,color:#fff
+    style suse fill:#73ba25,color:#fff
+    style ubuntu fill:#E95420,color:#fff
+    style fedora fill:#51A2DA,color:#fff
 ```
 
 ### Package Managers by Family
@@ -180,18 +211,27 @@ A **Linux distribution (distro)** is an operating system made from the Linux ker
 - Industry standard for enterprise servers and cloud
 
 ### RHEL Ecosystem
-```
-┌─────────────────────────────────────────────────┐
-│                 RHEL Ecosystem                   │
-├─────────────────────────────────────────────────┤
-│  Fedora        → Testing ground for new features│
-│       ↓                                         │
-│  RHEL          → Enterprise stable release      │
-│       ↓                                         │
-│  CentOS Stream → Upstream development for RHEL  │
-│  Rocky Linux   → Free RHEL clone                │
-│  AlmaLinux     → Free RHEL clone                │
-└─────────────────────────────────────────────────┘
+```mermaid
+flowchart LR
+    subgraph ecosystem["RHEL Ecosystem"]
+        direction TB
+        fedora["🧪 Fedora<br/>Testing ground for new features"]
+        rhel["🏢 RHEL<br/>Enterprise stable release"]
+        stream["🔄 CentOS Stream<br/>Upstream development for RHEL"]
+        rocky["🪨 Rocky Linux<br/>Free RHEL clone"]
+        alma["💙 AlmaLinux<br/>Free RHEL clone"]
+    end
+    
+    fedora --> rhel
+    rhel --> stream
+    rhel --> rocky
+    rhel --> alma
+    
+    style fedora fill:#51A2DA,color:#fff
+    style rhel fill:#ee0000,color:#fff
+    style stream fill:#9ccd2a,color:#000
+    style rocky fill:#10b981,color:#fff
+    style alma fill:#0f4880,color:#fff
 ```
 
 ### RHEL Versions
@@ -210,26 +250,28 @@ A **Linux distribution (distro)** is an operating system made from the Linux ker
 - **dnf** - Package manager (replaced yum in RHEL 8)
 
 ### RHEL File System Hierarchy
-```
-/                   → Root directory
-├── bin             → Essential user binaries
-├── boot            → Boot loader files, kernel
-├── dev             → Device files
-├── etc             → System configuration files
-├── home            → User home directories
-├── lib             → Essential shared libraries
-├── media           → Mount point for removable media
-├── mnt             → Temporary mount point
-├── opt             → Optional/third-party software
-├── proc            → Virtual filesystem for processes
-├── root            → Root user's home directory
-├── run             → Runtime variable data
-├── sbin            → System binaries
-├── srv             → Service data
-├── sys             → Virtual filesystem for kernel
-├── tmp             → Temporary files
-├── usr             → User utilities and applications
-└── var             → Variable data (logs, mail, spool)
+```mermaid
+flowchart LR
+    root["/"] --> bin["bin<br/>Essential user binaries"]
+    root --> boot["boot<br/>Boot loader, kernel"]
+    root --> dev["dev<br/>Device files"]
+    root --> etc["etc<br/>System configuration"]
+    root --> home["home<br/>User home directories"]
+    root --> lib["lib<br/>Essential libraries"]
+    root --> media["media<br/>Removable media mount"]
+    root --> mnt["mnt<br/>Temporary mount point"]
+    root --> opt["opt<br/>Optional software"]
+    root --> proc["proc<br/>Virtual filesystem (processes)"]
+    root --> rootdir["root<br/>Root user's home"]
+    root --> run["run<br/>Runtime variable data"]
+    root --> sbin["sbin<br/>System binaries"]
+    root --> srv["srv<br/>Service data"]
+    root --> sys["sys<br/>Virtual filesystem (kernel)"]
+    root --> tmp["tmp<br/>Temporary files"]
+    root --> usr["usr<br/>User utilities & apps"]
+    root --> var["var<br/>Variable data (logs, mail)"]
+    
+    style root fill:#ffd700,color:#000
 ```
 
 ---

@@ -19,43 +19,30 @@
 ## Linux Boot Process Overview
 
 ### Boot Sequence
-```
-┌─────────────────────────────────────────────────────────┐
-│                  Linux Boot Process                      │
-├─────────────────────────────────────────────────────────┤
-│                                                          │
-│  1. POWER ON                                             │
-│       │                                                  │
-│       ▼                                                  │
-│  2. BIOS/UEFI                                           │
-│     • POST (Power-On Self-Test)                         │
-│     • Initialize hardware                                │
-│     • Find bootable device                              │
-│       │                                                  │
-│       ▼                                                  │
-│  3. BOOTLOADER (GRUB2)                                  │
-│     • Load from MBR/ESP                                 │
-│     • Display menu                                       │
-│     • Load kernel + initramfs                           │
-│       │                                                  │
-│       ▼                                                  │
-│  4. KERNEL                                               │
-│     • Decompress and initialize                         │
-│     • Mount initramfs as temporary root                 │
-│     • Load essential drivers                            │
-│     • Start init process (PID 1)                        │
-│       │                                                  │
-│       ▼                                                  │
-│  5. SYSTEMD (init)                                      │
-│     • Mount real root filesystem                        │
-│     • Start services (parallel)                         │
-│     • Reach default target                              │
-│       │                                                  │
-│       ▼                                                  │
-│  6. LOGIN PROMPT                                         │
-│     • Getty / Display Manager                           │
-│                                                          │
-└─────────────────────────────────────────────────────────┘
+```mermaid
+flowchart TB
+    subgraph boot["Linux Boot Process"]
+        direction TB
+        power["⚡ <b>1. POWER ON</b>"]
+        bios["🖥️ <b>2. BIOS/UEFI</b><br/>• POST (Power-On Self-Test)<br/>• Initialize hardware<br/>• Find bootable device"]
+        grub["📋 <b>3. BOOTLOADER (GRUB2)</b><br/>• Load from MBR/ESP<br/>• Display menu<br/>• Load kernel + initramfs"]
+        kernel["🐧 <b>4. KERNEL</b><br/>• Decompress and initialize<br/>• Mount initramfs as temporary root<br/>• Load essential drivers<br/>• Start init process (PID 1)"]
+        systemd["⚙️ <b>5. SYSTEMD (init)</b><br/>• Mount real root filesystem<br/>• Start services (parallel)<br/>• Reach default target"]
+        login["👤 <b>6. LOGIN PROMPT</b><br/>• Getty / Display Manager"]
+    end
+    
+    power --> bios
+    bios --> grub
+    grub --> kernel
+    kernel --> systemd
+    systemd --> login
+    
+    style power fill:#ffeb3b,color:#000
+    style bios fill:#2196f3,color:#fff
+    style grub fill:#9c27b0,color:#fff
+    style kernel fill:#4caf50,color:#fff
+    style systemd fill:#ff5722,color:#fff
+    style login fill:#00bcd4,color:#fff
 ```
 
 ### Boot Files and Locations
