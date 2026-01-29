@@ -1,10 +1,10 @@
-# 🐧 Linux Crash Course
+# Linux Crash Course
 
 A comprehensive guide to Linux system administration, focused on RHEL-based distributions.
 
 ---
 
-## 📚 Course Modules
+## Course Modules
 
 | # | Module | Description |
 |---|--------|-------------|
@@ -22,10 +22,11 @@ A comprehensive guide to Linux system administration, focused on RHEL-based dist
 | 11 | [Boot & Troubleshooting](11_boot_troubleshooting.md) | Boot process, GRUB, recovery, diagnostics |
 | 12 | [Containers & Virtualization](12_containers_virtualization.md) | Podman, Docker, VMs, systemd-nspawn |
 | 13 | [Automation with Ansible](13_automation_ansible.md) | Playbooks, modules, roles, best practices |
+| 14 | [Practice Labs](14_practice_labs.md) | Hands-on exercises for all topics |
 
 ---
 
-## 🎯 Learning Path
+## Learning Path
 
 ### Beginner
 1. Introduction → File Manipulation → Users & Permissions
@@ -41,7 +42,7 @@ A comprehensive guide to Linux system administration, focused on RHEL-based dist
 
 ---
 
-## 🔧 Prerequisites
+## Prerequisites
 
 - Access to a Linux system (RHEL, CentOS, Rocky, AlmaLinux, or Fedora)
 - Terminal/SSH access
@@ -49,7 +50,7 @@ A comprehensive guide to Linux system administration, focused on RHEL-based dist
 
 ---
 
-## 📖 How to Use This Guide
+## How to Use This Guide
 
 Each module contains:
 - **Concept explanations** with diagrams
@@ -66,7 +67,7 @@ Each module contains:
 
 ---
 
-## 🏷️ Certification Relevance
+## Certification Relevance
 
 This material aligns with objectives for:
 - **RHCSA** (Red Hat Certified System Administrator)
@@ -76,7 +77,7 @@ This material aligns with objectives for:
 
 ---
 
-## 📝 Quick Command Reference
+## Quick Command Reference
 
 | Task | Command |
 |------|---------|
@@ -96,7 +97,7 @@ This material aligns with objectives for:
 
 ---
 
-## 🔗 Additional Resources
+## Additional Resources
 
 - [Red Hat Documentation](https://access.redhat.com/documentation/)
 - [Linux man pages online](https://man7.org/linux/man-pages/)
@@ -105,7 +106,7 @@ This material aligns with objectives for:
 
 ---
 
-## 📂 Repository Structure
+## Repository Structure
 
 ```
 LinuxCC/
@@ -123,9 +124,10 @@ LinuxCC/
 ├── 10_selinux_security.md         # Security hardening
 ├── 11_boot_troubleshooting.md     # Boot process and recovery
 ├── 12_containers_virtualization.md # Containers and VMs
-└── 13_automation_ansible.md       # Ansible basics
+├── 13_automation_ansible.md          # Ansible basics
+└── 14_practice_labs.md               # Hands-on exercises
 ```
 
 ---
 
-**Happy Learning! 🚀**
+**Happy Learning!**

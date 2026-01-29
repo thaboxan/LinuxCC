@@ -1,0 +1,20 @@
+<!-- _navbar.md -->
+
+* [Home](/)
+* [Quick Reference](00_quick_reference.md)
+* Modules
+  * [Introduction](01_intro.md)
+  * [File Manipulation](02_file_manipulation.md)
+  * [Users & Permissions](03_users_permissions.md)
+  * [Text Processing](04_text_processing.md)
+  * [Process Management](05_process_management.md)
+  * [Networking](06_networking.md)
+  * [Package Management](07_package_management.md)
+  * [Storage & Filesystems](08_storage_filesystems.md)
+  * [Shell Scripting](09_shell_scripting.md)
+  * [SELinux & Security](10_selinux_security.md)
+  * [Boot & Troubleshooting](11_boot_troubleshooting.md)
+  * [Containers](12_containers_virtualization.md)
+  * [Ansible](13_automation_ansible.md)
+  * [Practice Labs](14_practice_labs.md)
+* [GitHub](https://github.com)
