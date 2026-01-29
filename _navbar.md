@@ -17,4 +17,5 @@
   * [Containers](12_containers_virtualization.md)
   * [Ansible](13_automation_ansible.md)
   * [Practice Labs](14_practice_labs.md)
+  * [Quiz](15_quiz.md)
 * [GitHub](https://github.com)

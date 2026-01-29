@@ -279,5 +279,209 @@
   
   <!-- Zoom images -->
   <script src="https://cdn.jsdelivr.net/npm/docsify@4/lib/plugins/zoom-image.min.js"></script>
+  
+  <!-- Quiz Plugin -->
+  <script>
+    const quizQuestions = [
+      { category: "File System", difficulty: "easy", question: "What command would you use to see hidden files?", hint: "Think about the ls command with an option", answers: ["ls -a", "ls -la", "ls -al", "ls --all"], explanation: "The -a flag shows all files including hidden ones (starting with .)" },
+      { category: "File System", difficulty: "easy", question: "What command displays your current working directory?", hint: "Three letters", answers: ["pwd"], explanation: "pwd = Print Working Directory" },
+      { category: "File System", difficulty: "easy", question: "What command changes to your home directory?", hint: "Two letters or with a symbol", answers: ["cd", "cd ~", "cd $HOME"], explanation: "cd alone or cd ~ both take you to your home directory" },
+      { category: "File System", difficulty: "medium", question: "What command creates nested directories in one command?", hint: "mkdir with an option", answers: ["mkdir -p"], explanation: "The -p flag creates parent directories as needed" },
+      { category: "Files", difficulty: "easy", question: "What command copies a file?", hint: "Two letters", answers: ["cp"], explanation: "cp = copy" },
+      { category: "Files", difficulty: "easy", question: "What command moves or renames a file?", hint: "Two letters", answers: ["mv"], explanation: "mv = move (also used for renaming)" },
+      { category: "Files", difficulty: "easy", question: "What command removes a file?", hint: "Two letters", answers: ["rm"], explanation: "rm = remove" },
+      { category: "Files", difficulty: "medium", question: "What command removes a directory and all its contents?", hint: "rm with options for recursive and force", answers: ["rm -rf", "rm -r", "rm -Rf"], explanation: "-r is recursive, -f is force (no prompts)" },
+      { category: "Files", difficulty: "easy", question: "What command creates an empty file or updates timestamp?", hint: "Like touching something", answers: ["touch"], explanation: "touch creates empty files or updates timestamps" },
+      { category: "Text Processing", difficulty: "easy", question: "What command searches for patterns in files?", hint: "Four letters, Global Regular Expression Print", answers: ["grep"], explanation: "grep = Global Regular Expression Print" },
+      { category: "Text Processing", difficulty: "medium", question: "What grep option makes the search case-insensitive?", hint: "Single letter flag", answers: ["-i", "grep -i"], explanation: "-i ignores case distinctions" },
+      { category: "Text Processing", difficulty: "medium", question: "What command is a stream editor for transforming text?", hint: "Three letters", answers: ["sed"], explanation: "sed = Stream EDitor" },
+      { category: "Text Processing", difficulty: "medium", question: "What command counts lines, words, and characters in a file?", hint: "Word count", answers: ["wc"], explanation: "wc = word count" },
+      { category: "Text Processing", difficulty: "easy", question: "What command displays the first 10 lines of a file?", hint: "Top of the file", answers: ["head"], explanation: "head shows the beginning of a file" },
+      { category: "Text Processing", difficulty: "easy", question: "What command displays the last 10 lines of a file?", hint: "End of the file", answers: ["tail"], explanation: "tail shows the end of a file" },
+      { category: "Permissions", difficulty: "easy", question: "What command changes file permissions?", hint: "Change mode", answers: ["chmod"], explanation: "chmod = change mode" },
+      { category: "Permissions", difficulty: "easy", question: "What command changes file ownership?", hint: "Change owner", answers: ["chown"], explanation: "chown = change owner" },
+      { category: "Permissions", difficulty: "medium", question: "What numeric permission represents rwxr-xr-x?", hint: "rwx=7, r-x=5", answers: ["755"], explanation: "7(rwx) 5(r-x) 5(r-x) = 755" },
+      { category: "Permissions", difficulty: "medium", question: "What numeric permission represents rw-r--r--?", hint: "rw-=6, r--=4", answers: ["644"], explanation: "6(rw-) 4(r--) 4(r--) = 644" },
+      { category: "Users", difficulty: "easy", question: "What command adds a new user?", hint: "User + add", answers: ["useradd", "adduser"], explanation: "useradd creates a new user account" },
+      { category: "Users", difficulty: "easy", question: "What command changes a user's password?", hint: "Password", answers: ["passwd"], explanation: "passwd changes user passwords" },
+      { category: "Users", difficulty: "easy", question: "What command shows your current username?", hint: "Who am I?", answers: ["whoami"], explanation: "whoami displays the current user" },
+      { category: "Users", difficulty: "medium", question: "What command shows user and group IDs?", hint: "Two letters", answers: ["id"], explanation: "id shows UID, GID, and groups" },
+      { category: "Processes", difficulty: "easy", question: "What command shows running processes?", hint: "Process status", answers: ["ps", "ps aux", "ps -ef"], explanation: "ps = process status" },
+      { category: "Processes", difficulty: "easy", question: "What command terminates a process by PID?", hint: "End it", answers: ["kill"], explanation: "kill sends signals to processes" },
+      { category: "Processes", difficulty: "medium", question: "What signal number forcefully kills a process?", hint: "kill -?", answers: ["9", "-9", "SIGKILL"], explanation: "Signal 9 (SIGKILL) forces process termination" },
+      { category: "Processes", difficulty: "easy", question: "What command shows real-time process information?", hint: "At the top", answers: ["top", "htop"], explanation: "top shows dynamic real-time process info" },
+      { category: "Networking", difficulty: "easy", question: "What command tests connectivity to a host?", hint: "Like sonar", answers: ["ping"], explanation: "ping sends ICMP echo requests" },
+      { category: "Networking", difficulty: "medium", question: "What command shows IP addresses on the system?", hint: "ip + ?", answers: ["ip a", "ip addr", "ip address"], explanation: "ip a shows all IP addresses" },
+      { category: "Networking", difficulty: "medium", question: "What command shows listening ports?", hint: "Socket statistics", answers: ["ss -tuln", "ss", "netstat -tuln", "netstat"], explanation: "ss shows socket statistics" },
+      { category: "Services", difficulty: "easy", question: "What command manages systemd services?", hint: "System control", answers: ["systemctl"], explanation: "systemctl controls systemd services" },
+      { category: "Services", difficulty: "medium", question: "What systemctl command starts a service at boot?", hint: "Enable it", answers: ["systemctl enable", "enable"], explanation: "enable creates symlinks for auto-start" },
+      { category: "Services", difficulty: "medium", question: "What command views systemd logs?", hint: "Journal + control", answers: ["journalctl"], explanation: "journalctl queries the systemd journal" },
+      { category: "Packages", difficulty: "easy", question: "What is the package manager for RHEL 8+?", hint: "Dandified YUM", answers: ["dnf"], explanation: "dnf replaced yum in RHEL 8" },
+      { category: "Packages", difficulty: "medium", question: "What command installs a package with dnf?", hint: "dnf + action + package", answers: ["dnf install", "sudo dnf install"], explanation: "dnf install package-name" },
+      { category: "Storage", difficulty: "easy", question: "What command shows disk space usage?", hint: "Disk free", answers: ["df", "df -h"], explanation: "df = disk free" },
+      { category: "Storage", difficulty: "easy", question: "What command shows directory size?", hint: "Disk usage", answers: ["du", "du -sh", "du -h"], explanation: "du = disk usage" },
+      { category: "Storage", difficulty: "medium", question: "What command lists block devices?", hint: "List block", answers: ["lsblk"], explanation: "lsblk lists information about block devices" },
+      { category: "Storage", difficulty: "medium", question: "What command mounts a filesystem?", hint: "Attach it", answers: ["mount"], explanation: "mount attaches filesystems" },
+      { category: "SELinux", difficulty: "medium", question: "What command shows the current SELinux mode?", hint: "Get + enforce", answers: ["getenforce"], explanation: "getenforce shows Enforcing, Permissive, or Disabled" },
+      { category: "SELinux", difficulty: "medium", question: "What command temporarily sets SELinux to permissive?", hint: "Set + enforce + 0", answers: ["setenforce 0", "setenforce Permissive"], explanation: "setenforce 0 sets permissive mode (until reboot)" },
+      { category: "SELinux", difficulty: "hard", question: "What command restores default SELinux contexts?", hint: "Restore + context", answers: ["restorecon", "restorecon -Rv"], explanation: "restorecon restores file security contexts" },
+      { category: "Containers", difficulty: "easy", question: "What is the default container engine in RHEL?", hint: "Not Docker, but compatible", answers: ["podman"], explanation: "Podman is the daemonless container engine in RHEL" },
+      { category: "Containers", difficulty: "medium", question: "What command lists running containers?", hint: "podman + process status", answers: ["podman ps", "docker ps"], explanation: "podman ps lists running containers" },
+      { category: "Find", difficulty: "medium", question: "What command searches for files by name?", hint: "Find files", answers: ["find"], explanation: "find searches for files in a directory hierarchy" },
+      { category: "Find", difficulty: "hard", question: "What find option searches by file name pattern?", hint: "-name or -iname", answers: ["-name", "-iname"], explanation: "-name is case-sensitive, -iname is case-insensitive" },
+      { category: "Archives", difficulty: "medium", question: "What command creates tar archives?", hint: "Tape archive", answers: ["tar"], explanation: "tar = tape archive" },
+      { category: "Archives", difficulty: "hard", question: "What tar flags create a gzip compressed archive?", hint: "Create, gzip, verbose, file", answers: ["-czvf", "czvf", "-czf", "czf"], explanation: "c=create, z=gzip, v=verbose, f=file" },
+      { category: "Text Processing", difficulty: "hard", question: "What awk variable holds the number of fields in a record?", hint: "Number of Fields", answers: ["NF", "$NF"], explanation: "NF = Number of Fields in current record" },
+      { category: "Text Processing", difficulty: "hard", question: "What sed flag replaces all occurrences on each line?", hint: "Global", answers: ["g", "/g"], explanation: "The g flag means global replacement" }
+    ];
+
+    let quizScore = 0;
+    let quizTotal = 0;
+    let quizUsed = [];
+    let quizCurrent = null;
+    let quizAnswered = false;
+    let quizCategory = 'all';
+
+    function getCategories() {
+      const cats = [...new Set(quizQuestions.map(q => q.category))];
+      return cats.sort();
+    }
+
+    function initQuiz() {
+      const container = document.getElementById('quiz-box');
+      if (!container) return;
+      
+      // Populate category dropdown
+      const select = document.getElementById('quiz-topic');
+      if (select && select.options.length <= 1) {
+        getCategories().forEach(cat => {
+          const opt = document.createElement('option');
+          opt.value = cat;
+          opt.textContent = cat;
+          select.appendChild(opt);
+        });
+      }
+      
+      quizScore = 0;
+      quizTotal = 0;
+      quizUsed = [];
+      quizCategory = 'all';
+      updateQuizScore();
+      loadQuizQuestion();
+    }
+
+    function changeCategory() {
+      const select = document.getElementById('quiz-topic');
+      quizCategory = select.value;
+      quizUsed = [];
+      updateCategoryCount();
+      loadQuizQuestion();
+    }
+
+    function updateCategoryCount() {
+      const filtered = quizCategory === 'all' 
+        ? quizQuestions 
+        : quizQuestions.filter(q => q.category === quizCategory);
+      const countEl = document.getElementById('quiz-count');
+      if (countEl) {
+        countEl.textContent = filtered.length + ' questions';
+      }
+    }
+
+    function loadQuizQuestion() {
+      // Filter by category
+      let filtered = quizCategory === 'all' 
+        ? quizQuestions 
+        : quizQuestions.filter(q => q.category === quizCategory);
+      
+      // Get indices of filtered questions in original array
+      let filteredIndices = filtered.map(q => quizQuestions.indexOf(q));
+      
+      // Reset if all used
+      let availableIndices = filteredIndices.filter(i => !quizUsed.includes(i));
+      if (availableIndices.length === 0) {
+        quizUsed = quizUsed.filter(i => !filteredIndices.includes(i));
+        availableIndices = filteredIndices;
+      }
+      
+      let randIdx = Math.floor(Math.random() * availableIndices.length);
+      let actualIdx = availableIndices[randIdx];
+      quizUsed.push(actualIdx);
+      quizCurrent = quizQuestions[actualIdx];
+      quizAnswered = false;
+      
+      updateCategoryCount();
+      document.getElementById('quiz-category').textContent = quizCurrent.category;
+      document.getElementById('quiz-category').className = 'quiz-badge ' + quizCurrent.difficulty;
+      document.getElementById('quiz-question').textContent = quizCurrent.question;
+      document.getElementById('quiz-hint').textContent = 'Hint: ' + quizCurrent.hint;
+      document.getElementById('quiz-input').value = '';
+      document.getElementById('quiz-input').disabled = false;
+      document.getElementById('quiz-feedback').style.display = 'none';
+      document.getElementById('quiz-answer').style.display = 'none';
+      document.getElementById('quiz-input').focus();
+    }
+
+    function submitQuizAnswer() {
+      if (quizAnswered) return;
+      const input = document.getElementById('quiz-input').value.trim();
+      if (!input) { alert('Please enter an answer!'); return; }
+      
+      quizAnswered = true;
+      quizTotal++;
+      
+      const correct = quizCurrent.answers.some(a => a.toLowerCase() === input.toLowerCase());
+      const fb = document.getElementById('quiz-feedback');
+      
+      if (correct) {
+        quizScore++;
+        fb.className = 'quiz-feedback correct';
+        fb.innerHTML = '<strong>Correct!</strong> ' + quizCurrent.explanation;
+      } else {
+        fb.className = 'quiz-feedback incorrect';
+        fb.innerHTML = '<strong>Incorrect.</strong> Try viewing the answer.';
+      }
+      fb.style.display = 'block';
+      updateQuizScore();
+      if (correct) document.getElementById('quiz-input').disabled = true;
+    }
+
+    function viewQuizAnswer() {
+      const ans = document.getElementById('quiz-answer');
+      ans.innerHTML = '<strong>Answer:</strong> <code>' + quizCurrent.answers[0] + '</code><br><em>' + quizCurrent.explanation + '</em>';
+      ans.style.display = 'block';
+      quizAnswered = true;
+      document.getElementById('quiz-input').disabled = true;
+    }
+
+    function updateQuizScore() {
+      const pct = quizTotal > 0 ? Math.round((quizScore / quizTotal) * 100) : 0;
+      document.getElementById('quiz-score').textContent = quizScore + ' / ' + quizTotal + ' (' + pct + '%)';
+    }
+
+    function resetQuiz() {
+      quizScore = 0;
+      quizTotal = 0;
+      quizUsed = [];
+      updateQuizScore();
+      loadQuizQuestion();
+    }
+
+    // Docsify hook to initialize quiz when page loads
+    window.$docsify.plugins = (window.$docsify.plugins || []).concat(function(hook) {
+      hook.doneEach(function() {
+        if (document.getElementById('quiz-box')) {
+          initQuiz();
+          // Add enter key handler
+          document.getElementById('quiz-input').addEventListener('keypress', function(e) {
+            if (e.key === 'Enter') {
+              if (quizAnswered) loadQuizQuestion();
+              else submitQuizAnswer();
+            }
+          });
+        }
+      });
+    });
+  </script>
 </body>
 </html>

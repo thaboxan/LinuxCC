@@ -25,3 +25,4 @@
 
 * **Hands-On**
   * [14 - Practice Labs](14_practice_labs.md)
+  * [15 - Quiz](15_quiz.md)
