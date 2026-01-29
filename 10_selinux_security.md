@@ -951,5 +951,6 @@ sudo rkhunter --check
 
 ---
 
+**[← Back to Index](README.md)**  
 **Previous: [Shell Scripting](09_shell_scripting.md)**  
 **Next: [Boot Process & Troubleshooting](11_boot_troubleshooting.md)**

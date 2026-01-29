@@ -957,17 +957,8 @@ rm -rf /var/log/*.gz
 
 ## Course Complete! 🎉
 
-You've completed the Linux Crash Course covering:
-1. Introduction & Linux History
-2. File Manipulation
-3. Users & Permissions
-4. Text Processing
-5. Process Management
-6. Networking
-7. Package Management
-8. Storage & Filesystems
-9. Shell Scripting
-10. SELinux & Security
-11. Boot Process & Troubleshooting
+---
 
-**Keep practicing and good luck with your Linux journey!**
+**Previous: [SELinux & Security](10_selinux_security.md)**  
+**Next: [Containers & Virtualization](12_containers_virtualization.md)**  
+**[← Back to Index](README.md)**

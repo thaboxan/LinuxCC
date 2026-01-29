@@ -11,6 +11,8 @@
 - [diff and patch](#diff-and-patch)
 - [Other Useful Tools](#other-useful-tools)
 - [Combining Commands with Pipes](#combining-commands-with-pipes)
+- [Wildcards (Glob Patterns)](#wildcards-glob-patterns)
+- [find - Search for Files](#find---search-for-files)
 
 ---
 
@@ -790,6 +792,221 @@ echo "file.txt" | xargs -p rm
 
 ---
 
+## Wildcards (Glob Patterns)
+
+### Basic Wildcards
+```bash
+*         # Match any characters (zero or more)
+?         # Match exactly one character
+[abc]     # Match any character in brackets
+[a-z]     # Match any character in range
+[!abc]    # Match any character NOT in brackets
+[^abc]    # Same as [!abc]
+```
+
+### Wildcard Examples
+```bash
+# Match any files
+ls *.txt                              # All .txt files
+ls file*                              # Files starting with "file"
+ls *log*                              # Files containing "log"
+
+# Match single character
+ls file?.txt                          # file1.txt, fileA.txt, etc.
+ls ???.txt                            # Any 3-character name .txt
+
+# Character classes
+ls file[123].txt                      # file1.txt, file2.txt, file3.txt
+ls file[a-z].txt                      # filea.txt through filez.txt
+ls file[0-9][0-9].txt                 # file00.txt through file99.txt
+ls [A-Z]*.txt                         # Files starting with uppercase
+ls *[!0-9].txt                        # Files NOT ending with digit before .txt
+```
+
+### Extended Globs (bash)
+```bash
+# Enable extended globs
+shopt -s extglob
+
+# Extended patterns
+?(pattern)        # Zero or one occurrence
+*(pattern)        # Zero or more occurrences
++(pattern)        # One or more occurrences
+@(pattern)        # Exactly one occurrence
+!(pattern)        # Anything except pattern
+
+# Examples
+ls !(*.txt)                           # All files EXCEPT .txt
+ls *.@(jpg|png|gif)                   # Images only
+ls +([0-9]).txt                       # One or more digits .txt
+```
+
+---
+
+## find - Search for Files
+
+### Basic Syntax
+```bash
+find [path] [options] [expression]
+```
+
+### Search by Name
+```bash
+# Exact name
+find /home -name "file.txt"
+
+# Wildcard patterns (quote them!)
+find . -name "*.txt"                  # All .txt files
+find . -name "file*"                  # Files starting with "file"
+find /var -name "*.log"               # All log files
+
+# Case insensitive
+find . -iname "*.TXT"                 # Matches .txt, .TXT, .Txt
+
+# By path/directory pattern
+find . -path "*config*"               # Path contains "config"
+find . -path "*/src/*.java"           # Java files in src directories
+```
+
+### Search by Type
+```bash
+find . -type f                        # Files only
+find . -type d                        # Directories only
+find . -type l                        # Symbolic links
+find . -type f -name "*.sh"           # Shell script files
+```
+
+### Search by Size
+```bash
+find . -size +100M                    # Larger than 100MB
+find . -size -1k                      # Smaller than 1KB
+find . -size 50M                      # Exactly 50MB
+find /var -type f -size +10M          # Files over 10MB in /var
+
+# Size suffixes: c (bytes), k (KB), M (MB), G (GB)
+```
+
+### Search by Time
+```bash
+# Modified time (days)
+find . -mtime -7                      # Modified in last 7 days
+find . -mtime +30                     # Modified more than 30 days ago
+find . -mtime 0                       # Modified today
+
+# Access time
+find . -atime -7                      # Accessed in last 7 days
+
+# Changed time (metadata)
+find . -ctime -7                      # Changed in last 7 days
+
+# Minutes instead of days
+find . -mmin -60                      # Modified in last 60 minutes
+find . -mmin +120                     # Modified more than 2 hours ago
+
+# Newer than file
+find . -newer reference.txt           # Newer than reference.txt
+```
+
+### Search by Permissions/Ownership
+```bash
+# By permission
+find . -perm 644                      # Exactly 644
+find . -perm -644                     # At least 644
+find . -perm /u+x                     # User executable
+find . -perm -u+x                     # User executable (all)
+
+# By owner/group
+find . -user john                     # Owned by john
+find . -group developers              # Group is developers
+find . -nouser                        # No valid owner
+find . -nogroup                       # No valid group
+```
+
+### Combining Conditions
+```bash
+# AND (default)
+find . -name "*.txt" -type f          # .txt AND file type
+
+# OR
+find . -name "*.txt" -o -name "*.log" # .txt OR .log
+find . \( -name "*.jpg" -o -name "*.png" \) -type f
+
+# NOT
+find . ! -name "*.txt"                # NOT .txt
+find . -not -user root                # NOT owned by root
+```
+
+### Actions
+```bash
+# Print (default)
+find . -name "*.txt" -print
+
+# Delete
+find . -name "*.tmp" -delete
+find /tmp -type f -mtime +7 -delete   # Delete old temp files
+
+# Execute command
+find . -name "*.sh" -exec chmod +x {} \;         # Make executable
+find . -name "*.txt" -exec grep "pattern" {} \;  # Search in files
+find . -name "*.log" -exec rm {} \;              # Remove files
+
+# Execute with confirmation
+find . -name "*.bak" -ok rm {} \;                # Prompt before delete
+
+# Execute with multiple files (faster)
+find . -name "*.txt" -exec grep "pattern" {} +
+
+# Using xargs (handles large file lists)
+find . -name "*.txt" | xargs grep "pattern"
+find . -name "*.txt" -print0 | xargs -0 grep "pattern"  # Handle spaces
+```
+
+### Practical find Examples
+```bash
+# Find large files
+find / -type f -size +100M 2>/dev/null
+
+# Find recently modified configs
+find /etc -name "*.conf" -mtime -1
+
+# Find and remove old logs
+find /var/log -name "*.log" -mtime +30 -delete
+
+# Find empty files/directories
+find . -type f -empty                 # Empty files
+find . -type d -empty                 # Empty directories
+
+# Find files with specific text
+find . -name "*.py" -exec grep -l "import os" {} \;
+
+# Find duplicate names
+find . -name "*.txt" -printf "%f\n" | sort | uniq -d
+
+# Find executables
+find /usr/bin -type f -perm /u+x
+
+# Find broken symlinks
+find . -type l ! -exec test -e {} \; -print
+
+# Find and change permissions
+find . -type f -name "*.sh" -exec chmod 755 {} \;
+
+# Find files modified between dates
+find . -newermt "2024-01-01" ! -newermt "2024-02-01"
+```
+
+### find vs locate
+```bash
+# locate - fast but uses database
+locate filename                       # Search filename database
+sudo updatedb                         # Update database
+
+# find - slower but real-time
+find / -name filename                 # Search filesystem directly
+```
+
+---
+
 ## Quick Reference Card
 
 ### grep
@@ -833,5 +1050,6 @@ echo "file.txt" | xargs -p rm
 
 ---
 
+**[← Back to Index](README.md)**  
 **Previous: [Users & Permissions](03_users_permissions.md)**  
 **Next: [Process Management](05_process_management.md)**

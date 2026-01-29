@@ -860,5 +860,6 @@ sudo -l -U username
 
 ---
 
+**[← Back to Index](README.md)**  
 **Previous: [File Manipulation](02_file_manipulation.md)**  
 **Next: [Text Processing](04_text_processing.md)**

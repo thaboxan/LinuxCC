@@ -966,5 +966,6 @@ findmnt --verify
 
 ---
 
+**[← Back to Index](README.md)**  
 **Previous: [Package Management](07_package_management.md)**  
 **Next: [Shell Scripting](09_shell_scripting.md)**

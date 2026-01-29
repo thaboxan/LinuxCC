@@ -962,5 +962,6 @@ sudo systemctl restart rsyslog
 
 ---
 
+**[← Back to Index](README.md)**  
 **Previous: [Text Processing](04_text_processing.md)**  
 **Next: [Networking](06_networking.md)**

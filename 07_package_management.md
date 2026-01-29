@@ -675,5 +675,6 @@ snap info firefox
 
 ---
 
+**[← Back to Index](README.md)**  
 **Previous: [Networking](06_networking.md)**  
 **Next: [Storage & Filesystems](08_storage_filesystems.md)**

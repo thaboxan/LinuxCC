@@ -809,5 +809,6 @@ zip -u archive.zip newfile      # Update/add to existing zip
 
 ---
 
+**[← Back to Index](README.md)**  
 **Previous: [Introduction to Linux](01_intro.md)**  
-**Next: [User and Permission Management](03_users_permissions.md)**
+**Next: [Users & Permissions](03_users_permissions.md)**

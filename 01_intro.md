@@ -283,4 +283,5 @@ modinfo <module>            # Module information
 
 ---
 
+**[← Back to Index](README.md)**  
 **Next: [File Manipulation Commands](02_file_manipulation.md)**

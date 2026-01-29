@@ -1197,5 +1197,6 @@ nmtui hostname
 
 ---
 
+**[← Back to Index](README.md)**  
 **Previous: [Process Management](05_process_management.md)**  
 **Next: [Package Management](07_package_management.md)**
